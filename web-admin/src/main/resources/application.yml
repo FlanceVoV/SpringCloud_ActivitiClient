@@ -1,0 +1,64 @@
+server :
+    port : 8080
+
+# 关闭默认验证
+security :
+    basic :
+        enabled : false
+
+# 注册中心
+eureka :
+    instance:
+        hostname: 192.168.1.128
+    client :
+        serviceUrl :
+            defaultZone : http://192.168.1.128:9999/eureka/
+
+spring :
+    application:
+        name: weizechen-client
+    datasource :
+        name : test
+        url : jdbc:mysql://localhost:3306/process-center
+        username : root
+        password : root
+        # 使用druid数据源
+        type : com.alibaba.druid.pool.DruidDataSource
+        driver-class-name : com.mysql.jdbc.Driver
+        filters : stat
+        maxActive : 20
+        initialSize : 1
+        maxWait : 60000
+        minIdle : 1
+        timeBetweenEvictionRunsMillis : 60000
+        minEvictableIdleTimeMillis : 300000
+        validationQuery : select 'x'
+        testWhileIdle : true
+        testOnBorrow : false
+        testOnReturn : false
+        poolPreparedStatements : true
+        maxOpenPreparedStatements : 20
+    freemarker :
+        template-loader-path : classpath:/view/
+        charset : utf-8
+        suffix : .ftl
+    activiti :
+        check-process-definitions : false
+        database-schema-update : true
+#        databse-type : mysql
+#        jdbc-driver : com.mysql.jdbc.Driver
+#        jdbc-url : jdbc:mysql://localhost:3306/activiti_study
+#        jdbc-username : root
+#        jdbc-password : root
+#        data-source : com.alibaba.druid.pool.DruidDataSource
+
+mybatis :
+  mapper-locations : classpath:mapping/*.xml
+  type-aliases-package : me.git.weizechen.domain
+
+#pagehelper分页插件
+pagehelper :
+    helperDialect : mysql
+    reasonable : true
+    supportMethodsArguments : true
+    params : count=countSql
